@@ -1,3 +1,8 @@
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 
@@ -74,7 +79,7 @@
 			$.ajax({
 				type:"POST",
 				data:datos,
-				url:"procesos/regLogin/registrarUsuario.php",
+				url:"procesos/regLogin/registraUsuario.php",
 				success:function(r){
 					alert(r);
 

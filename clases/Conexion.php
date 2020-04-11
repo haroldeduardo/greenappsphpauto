@@ -10,8 +10,8 @@
 
      public function conexion(){
          $conexion= mysqli_connect(
-         $this ->servidor,
-         $this ->usuario,
+         $this->servidor,
+         $this->usuario,
          $this->password,
          $this->bd);
 
