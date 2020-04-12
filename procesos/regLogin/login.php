@@ -1,5 +1,5 @@
 <?php 
-	session_start();
+	session_start(); //para que respete las dos secciones
 	require_once "../../clases/Conexion.php";
 	require_once "../../clases/Usuarios.php";
 

@@ -24,34 +24,55 @@ class usuarios
 								'$fecha')";
 
 
-	 $resultado= mysqli_query($conexion,$sql);
-		if(!$resultado){
-	     return mysqli_error($conexion);
-		}
-		else{
+		$resultado = mysqli_query($conexion, $sql);
+		if (!$resultado) {
+			return mysqli_error($conexion);
+		} else {
 			return mysqli_insert_id($conexion);
 		}
 	}
 
 	//registrando el login ussuario
 
-	public function loginUser($datos){
-		$c=new conectar();
-		$conexion=$c->conexion();
-		$password=sha1($datos[1]);
+	public function loginUser($datos)
+	{
+		$c = new conectar();
+		$conexion = $c->conexion();
+		$password = sha1($datos[1]);
 
-		
 
-		$sql="SELECT * 
+		//vamos  acrera la seccion del usuario
+
+		$_SESSION['usuario'] = $datos[0];
+		$_SESSION['iduser']=self::traeID($datos); // averiguar self
+
+
+
+		$sql = "SELECT * 
 				from usuarios 
 			where email='$datos[0]'
 			and password='$password'";
-		$result=mysqli_query($conexion,$sql);
+		$result = mysqli_query($conexion, $sql);
 
-		if(mysqli_num_rows($result) > 0){
+		if (mysqli_num_rows($result) > 0) {
 			return 1;
-		}else{
+		} else {
 			return 0;
 		}
+	}
+
+	public function traeID($datos)
+	{
+		$c = new conectar();
+		$conexion = $c->conexion();
+		$password = sha1($datos[1]);
+		$sql = "SELECT id_usuario 
+		from usuarios 
+	where email='$datos[0]'
+	and password='$password'";
+
+$result = mysqli_query($conexion, $sql);
+
+return mysqli_fetch_row($result)[0];
 	}
 }
