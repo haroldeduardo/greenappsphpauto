@@ -9,6 +9,7 @@
     </title>
     <link rel="stylesheet" type="text/css" href="librerias/bootstrap/css/bootstrap.css">
     <script src="librerias/jquery-3.2.1.min.js"></script>
+    <script src="js/funciones.js"></script>
 
 </head>
 
@@ -33,7 +34,7 @@
 
                          <p></p>
 
-                         <span class=" btn  btn-primary btn-sm">enviar</span>
+                         <span class=" btn  btn-primary btn-sm"id="entrarSistema">enviar</span>
                          <a href="registro.php"class=" btn  btn-danger btn-sm">Registrar</a>
                      </form>
                     </div>
@@ -48,3 +49,31 @@
 </body>
 
 </html>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#entrarSistema').click(function(){
+
+		vacios=validarFormVacio('frmLogin');
+
+			if(vacios > 0){
+				alert("Debes llenar todos los campos!!");
+				return false;
+			}
+
+		datos=$('#frmLogin').serialize();
+		$.ajax({
+			type:"POST",
+			data:datos,
+			url:"procesos/regLogin/login.php",
+			success:function(r){
+
+				if(r==1){
+					window.location="vistas/inicio.php";
+				}else{
+					alert("No se pudo acceder :(");
+				}
+			}
+		});
+	});
+	});
+</script>

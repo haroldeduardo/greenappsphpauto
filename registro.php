@@ -45,7 +45,7 @@
                                 <label>Password</label>
                                 <input type="text" class="form-control input-sm" name="password" id="password">
                                 <p></p>
-                                <span class=" btn  btn-primary btn-sm" id="registro">Registrar</span>
+                                <span class=" btn-primary btn-sm" id="registro">Registrar</span>
                                 <a href="index.php" class=" btn  btn-default btn-sm">Regresar a login</a>
 
                             </form>
@@ -76,17 +76,20 @@
 			}
 
 			datos=$('#frmRegistro').serialize();
+            //console.log(datos);
 			$.ajax({
 				type:"POST",
 				data:datos,
 				url:"procesos/regLogin/registraUsuario.php",
 				success:function(r){
-					alert(r);
+					//alert(r);
 
-					if(r==1){
+
+
+					if(r>0){
 						alert("Agregado con exito");
 					}else{
-						alert("Fallo al agregar :(");
+						alert("Fallo al agregar :("+r);
 					}
 				}
 			});
