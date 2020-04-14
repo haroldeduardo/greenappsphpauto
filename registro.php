@@ -1,4 +1,20 @@
 
+<?php
+require_once "clases/Conexion.php";
+$obj= new conectar();
+$conexion=$obj->conexion();
+
+$sql="SELECT * FROM usuarios where email= 'admin'";
+
+$result=mysqli_query($conexion,$sql);
+$validar=0;
+
+if(mysqli_num_rows($result)>0){
+    header("location:index.php"); // no permite   esntar a la pagina registro  cuando exita una admin
+}
+
+?>
+
 
 
 

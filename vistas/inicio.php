@@ -1,38 +1,28 @@
-<?php
-session_start();//para que respete las dos secciones
+<?php session_start();
 if(isset($_SESSION['usuario'])){
-
-
-
-
 ?>
 
 
-
-
 <!DOCTYPE html>
-<html>
+   <html>
 
-<head>
+  <head>
     <title>
-       
+        inicio  </title>
 
+    <?php include_once "menu.php"; ?>
+    </head>
 
-    </title>
-    
+  <body>
 
-</head>
+  </body>
 
-<body>
+   </html>
 
-</body>
-
-</html>
-
-<?php
+   <?php
+}else{
+  header("location:../index.php"); // lo devueve  al index si no esta lleno
 }
 
-else{
-    header("../index.php"); // lo devueve  al index si no esta lleno
-}
+
 ?>
