@@ -11,6 +11,15 @@ if (isset($_SESSION['usuario'])) {
       Articulos </title>
 
     <?php include_once "menu.php"; ?>
+	<?php include_once "../clases/Conexion.php";
+	$c= new conectar();
+	$conexion=$c->conexion();
+
+	$sql="SELECT id_categoria,nombreCategoria from categorias";
+	$result=mysqli_query($conexion,$sql);
+	
+	
+	?>
   </head>
 
   <body>
@@ -57,31 +66,39 @@ if (isset($_SESSION['usuario'])) {
       $('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
       $('#btnAgregaArticulo').click(function(){
 
-        vacios=validarFormVacio('frmArticulos');
+        //vacios=validarFormVacio('frmArticulos');
 
-	if(vacios > 0){
+	/*if(vacios > 0){
 		alertify.alert("Debes llenar todos los campos!!");
-		return false;
+		return false;*/
 
-  }
-      datos=$('#frmArticulos').serialize();
-            //console.log(datos);
-			$.ajax({
-				type:"POST",
-				data:datos,
-				url:"procesos/articulos/agregarArticulos.php",
-				success:function(r){
-					alert(r);
+  //}
+      
+            
+			var formData = new FormData(document.getElementById("frmArticulos"));
 
+				$.ajax({
+					url: "../procesos/articulos/insertaArticulos.php",
+					type: "post",
+					dataType: "html",
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false,
 
+					success:function(r){
 
-					if(r>0){
-					alertify.alert("Agregado articulos");
-					}else{
-						alert("Fallo al agregar  articulos:("+r);
+						alert(r);
+						
+						if(r == 1){
+							$('#frm')[0].reset();
+							$('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
+							alertify.success("Agregado con exito :D");
+						}else{
+							alertify.error("Fallo al subir el archivo :(");
+						}
 					}
-				}
-			});
+				});
 
     });
     });
