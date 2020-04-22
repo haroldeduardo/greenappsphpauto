@@ -1,7 +1,10 @@
 <?php
 
 class categorias
+
 {
+
+
 
     public function agregaCategoria($datos)
     {
@@ -16,12 +19,12 @@ class categorias
 
         //$resultado = mysqli_query($conexion, $datos);
 
-    
 
-        return mysqli_query($conexion,$sql);
 
-       
-       /* if (!$resultado) {
+        return mysqli_query($conexion, $sql);
+
+
+        /* if (!$resultado) {
             return mysqli_error($conexion);
         } else {
             return mysqli_insert_id($conexion);
@@ -29,13 +32,29 @@ class categorias
     }
 
 
-    public function actualizaCategoria($datos){
+    public function actualizaCategoria($datos)
+    {
         $c = new conectar();
         $conexion = $c->conexion();
 
-        $sql="UPDATE categorias set nombreCategoria='$datos[1]' 
+
+        $sql = "UPDATE categorias set nombreCategoria='$datos[1]' 
         where id_categoria='$datos[0]'";
 
-echo mysqli_query($conexion,$sql); 
+        echo mysqli_query($conexion, $sql);
+
+    }
+
+
+
+    
+
+    public function eliminarCategoria($idcategoria){
+        $c = new conectar();
+        $conexion = $c->conexion();
+
+        $sql= "DELETE from categorias where id_categoria='$idcategoria'";
+
+        return mysqli_query($conexion,$sql);
     }
 }
