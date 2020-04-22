@@ -66,13 +66,13 @@ if (isset($_SESSION['usuario'])) {
       $('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
       $('#btnAgregaArticulo').click(function(){
 
-        //vacios=validarFormVacio('frmArticulos');
+        vacios=validarFormVacio('frmArticulos');
 
-	/*if(vacios > 0){
+	if(vacios > 0){
 		alertify.alert("Debes llenar todos los campos!!");
-		return false;*/
+		return false;
 
-  //}
+  }
       
             
 			var formData = new FormData(document.getElementById("frmArticulos"));
@@ -88,10 +88,10 @@ if (isset($_SESSION['usuario'])) {
 
 					success:function(r){
 
-						alert(r);
+					
 						
-						if(r == 1){
-							$('#frm')[0].reset();
+						if(r > 0){
+							$('#frmArticulos')[0].reset();
 							$('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
 							alertify.success("Agregado con exito :D");
 						}else{
