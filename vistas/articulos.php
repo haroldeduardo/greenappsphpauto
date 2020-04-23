@@ -89,8 +89,9 @@ if (isset($_SESSION['usuario'])) {
 					success:function(r){
 
 					
-						
-						if(r > 0){
+					
+						if (r == 1){
+							 
 							$('#frmArticulos')[0].reset();
 							$('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
 							alertify.success("Agregado con exito :D");
