@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
  require_once "../../clases/Conexion.php";
 
@@ -9,6 +10,20 @@
 
  $result = mysqli_query($conexion,$sql);
 ?>
+=======
+
+	<?php 
+			require_once "../../clases/Conexion.php";
+			$c= new conectar();
+			$conexion=$c->conexion();
+
+			$sql="SELECT art.nombre,art.descripcion,art.cantidad,art.precio
+					FROM articulos as art";
+			$result=mysqli_query($conexion,$sql);
+	 ?>
+
+
+>>>>>>> ff4d93837833f2e615d01354be19b4813068dc63
 
 
 
@@ -28,6 +43,7 @@
         <td>Eliminar</td>
     </tr>
 
+<<<<<<< HEAD
   <?php while($ver=mysqli_fetch_row($result)): ?>
 
 
@@ -36,6 +52,16 @@
     <td><?php echo $ver[1] ; ?></td>
     <td><?php echo $ver[2] ; ?></td>
     <td><?php echo $ver[3] ; ?></td>
+=======
+  
+<?php while($ver=mysqli_fetch_row($result )): ?>
+
+    <tr>
+    <td><?php echo $ver[0];?></td>
+    <td><?php echo $ver[1];?></td>
+    <td><?php echo $ver[2];?></td>
+    <td><?php echo $ver[3];?></td>
+>>>>>>> ff4d93837833f2e615d01354be19b4813068dc63
     <td></td>
     <td></td>
     <td></td>
@@ -50,5 +76,9 @@
         </span> 
         </td>
     </tr>
+<<<<<<< HEAD
   <?php endwhile; ?>
+=======
+<?php endwhile; ?>
+>>>>>>> ff4d93837833f2e615d01354be19b4813068dc63
 </table>
