@@ -133,6 +133,31 @@ if (isset($_SESSION['usuario'])) {
 			});
 
 		}
+
+		function eliminaArticulo(idArticulo){
+			alertify.confirm('¿Desea eliminar este articulo?', function(){ 
+				$.ajax({
+					type:"POST",
+					data:"idarticulo=" +idArticulo,
+					url:"../procesos/articulos/eliminarArticulo.php",
+					success:function(r){
+						if(r==1){
+							$('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
+							alertify.success("Eliminado con exito!!");
+						}else{
+							alertify.error("No se pudo eliminar :(");
+						}
+			}
+		});
+
+	   },
+	  function() {
+		alertify.error('Cancelo!')
+	});
+
+}
+
+
 	</script>
 
 	<script type="text/javascript">
@@ -145,7 +170,8 @@ if (isset($_SESSION['usuario'])) {
 					type: "POST",
 					data: datos,
 					url: "../procesos/articulos/actaulizaArticulos.php", // aqui es donde va ir a buscar la consulta de actualzair
-					success: function(r) {
+					success: function(r)
+					 {
 
 						//	console.log(r); // sive para mira la consola resultados
 						if (r == 1) {
