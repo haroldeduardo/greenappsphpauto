@@ -3,27 +3,27 @@ if (isset($_SESSION['usuario'])) {
 ?>
 
 
-  <!DOCTYPE html>
-  <html>
+	<!DOCTYPE html>
+	<html>
 
-  <head>
-    <title>
-      Articulos </title>
+	<head>
+		<title>
+			Articulos </title>
 
-    <?php include_once "menu.php"; ?>
-	<?php include_once "../clases/Conexion.php";
-	$c= new conectar();
-	$conexion=$c->conexion();
+		<?php include_once "menu.php"; ?>
+		<?php include_once "../clases/Conexion.php";
+		$c = new conectar();
+		$conexion = $c->conexion();
 
-	$sql="SELECT id_categoria,nombreCategoria from categorias";
-	$result=mysqli_query($conexion,$sql);
-	
-	
-	?>
-  </head>
+		$sql = "SELECT id_categoria,nombreCategoria from categorias";
+		$result = mysqli_query($conexion, $sql);
 
-  <body>
-  <div class="container">
+
+		?>
+	</head>
+
+	<body>
+		<div class="container">
 			<h1>Articulos</h1>
 			<div class="row">
 				<div class="col-sm-4">
@@ -31,7 +31,7 @@ if (isset($_SESSION['usuario'])) {
 						<label>Categoria</label>
 						<select class="form-control input-sm" id="categoriaSelect" name="categoriaSelect">
 							<option value="A">Selecciona Categoria</option>
-							<?php while($ver=mysqli_fetch_row($result)): ?>
+							<?php while ($ver = mysqli_fetch_row($result)) : ?>
 								<option value="<?php echo $ver[0] ?>"><?php echo $ver[1]; ?></option>
 							<?php endwhile; ?>
 						</select>
@@ -55,27 +55,129 @@ if (isset($_SESSION['usuario'])) {
 			</div>
 		</div>
 
+		<!-- Button trigger modal -->
+
+		<!-- Modal -->
+		<div class="modal fade" id="abremodalUpdateArticulo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button id="btnactulizaarticulo" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Actualiza Articulos</h4>
+					</div>
+					<div class="modal-body">
+						<form id="frmArticulosU" enctype="multipart/form-data">
+							<input type="text" id="idArticulo" hidden="" name="idArticulo">
+							<label>Categoria</label>
+							<select class="form-control input-sm" id="categoriaSelectU" name="categoriaSelectU">
+								<option value="A">Selecciona Categoria</option>
+								<?php $sql = "SELECT id_categoria,nombreCategoria from categorias";
+								$result = mysqli_query($conexion, $sql); ?>
 
 
-  </body>
+								<?php while ($ver = mysqli_fetch_row($result)) : ?>
+									<option value="<?php echo $ver[0] ?>"><?php echo $ver[1]; ?></option>
+								<?php endwhile; ?>
+							</select>
+							<label>Nombre</label>
+							<input type="text" class="form-control input-sm" id="nombreU" name="nombreU">
+							<label>Descripcion</label>
+							<input type="text" class="form-control input-sm" id="descripcionU" name="descripcionU">
+							<label>Cantidad</label>
+							<input type="text" class="form-control input-sm" id="cantidadU" name="cantidadU">
+							<label>Precio</label>
+							<input type="text" class="form-control input-sm" id="precioU" name="precioU">
 
-  </html>
-  <script type="text/javascript">
-    $(document).ready(function() {
 
-      $('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
-      $('#btnAgregaArticulo').click(function(){
 
-        vacios=validarFormVacio('frmArticulos');
+						</form>
+					</div>
+					<div class="modal-footer">
 
-	if(vacios > 0){
-		alertify.alert("Debes llenar todos los campos!!");
-		return false;
 
-  }
-      
-            
-			var formData = new FormData(document.getElementById("frmArticulos"));
+						<button id="btnActualizaarticulo" type="button" class="btn btn-warning" data-dismiss="modal">Actualizar</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+	</html>
+
+	<script type="text/javascript">
+		function agregaDatosArticulo(idarticulo) {
+
+
+			$.ajax({
+				url: "../procesos/articulos/obtenDatosArticulo.php",
+				type: "post",
+				dataType: "html",
+				data: "idart=" + idarticulo,
+
+
+				success: function(r) {
+					//alert(r); //  nos va mostrar una cadena json
+					dato = jQuery.parseJSON(r);
+					$('#idArticulo').val(dato['id_producto']);
+					$('#categoriaSelectU').val(dato['id_categoria']);
+					$('#nombreU').val(dato['nombre']);
+					$('#descripcionU').val(dato['descripcion']);
+					$('#cantidadU').val(dato['cantidad']);
+					$('#precioU').val(dato['precio']);
+
+
+
+				}
+			});
+
+		}
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			//script para evento click y ajax 
+			$('#btnActualizaarticulo').click(function() { //cuando se le de  el boton actualizar va pasar que
+
+				datos = $('#frmArticulosU').serialize(); // los datos  que vienen del formulario del modal el qeu se cambia
+				$.ajax({
+					type: "POST",
+					data: datos,
+					url: "../procesos/articulos/actaulizaArticulos.php", // aqui es donde va ir a buscar la consulta de actualzair
+					success: function(r) {
+
+						//	console.log(r); // sive para mira la consola resultados
+						if (r == 1) {
+							alertify.success("SE ACTUALIZO CON EXITOS");
+						} else {
+							alertify.error("NO SE ACTUALIZO");
+						}
+
+
+					}
+				});
+			});
+		});
+	</script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
+			$('#btnAgregaArticulo').click(function() {
+
+				vacios = validarFormVacio('frmArticulos');
+
+				if (vacios > 0) {
+					alertify.alert("Debes llenar todos los campos!!");
+					return false;
+
+				}
+
+
+				var formData = new FormData(document.getElementById("frmArticulos"));
 
 				$.ajax({
 					url: "../procesos/articulos/insertaArticulos.php",
@@ -86,28 +188,28 @@ if (isset($_SESSION['usuario'])) {
 					contentType: false,
 					processData: false,
 
-					success:function(r){
+					success: function(r) {
 
-					
-					
-						if (r == 1){
-							 
+
+
+						if (r == 1) {
+
 							$('#frmArticulos')[0].reset();
 							$('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
 							alertify.success("Agregado con exito :D");
-						}else{
+						} else {
 							alertify.error("Fallo al subir el archivo :(");
 						}
 					}
 				});
 
-    });
-    });
-  </script>
+			});
+		});
+	</script>
 
 <?php
 } else {
-  header("location:../index.php");
+	header("location:../index.php");
 }
 
 

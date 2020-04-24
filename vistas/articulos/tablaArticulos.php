@@ -48,7 +48,7 @@
 		</td>
 		<td><?php echo $ver[5]; ?></td>
 		<td>
-			<span  data-toggle="modal" data-target="#abremodalUpdateArticulo" class="btn btn-warning btn-xs" onclick="agregaDatosArticulo('<?php echo $ver[6] ?>')">
+			<span data-toggle="modal" data-target="#abremodalUpdateArticulo" class="btn btn-warning btn-xs" onclick="agregaDatosArticulo('<?php echo $ver[6] ?>')">
 				<span class="glyphicon glyphicon-pencil"></span>
 			</span>
 		</td>
