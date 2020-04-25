@@ -102,6 +102,15 @@ if (isset($_SESSION['usuario'])) {
 			</div>
 		</div>
 
+                                      <!-- MODAL-->
+
+
+
+
+
+
+
+
 	</body>
 
 	</html>
@@ -175,6 +184,7 @@ if (isset($_SESSION['usuario'])) {
 
 						//	console.log(r); // sive para mira la consola resultados
 						if (r == 1) {
+							
 							alertify.success("SE ACTUALIZO CON EXITOS");
 						} else {
 							alertify.error("NO SE ACTUALIZO");

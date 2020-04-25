@@ -44,7 +44,7 @@ class usuarios
 		//vamos  acrera la seccion del usuario
 
 		$_SESSION['usuario'] = $datos[0];
-		$_SESSION['iduser']=self::traeID($datos); // averiguar self
+		$_SESSION['iduser'] = self::traeID($datos); // averiguar self
 
 
 
@@ -71,8 +71,36 @@ class usuarios
 	where email='$datos[0]'
 	and password='$password'";
 
-$result = mysqli_query($conexion, $sql);
+		$result = mysqli_query($conexion, $sql);
 
-return mysqli_fetch_row($result)[0];
+		return mysqli_fetch_row($result)[0];
+	}
+	//este metodo o funcion es para  cuando se  este modificando//
+	//el usuario aqui recoje todo los datos y lo lleva  a la tablausuarios.php//
+	public function obtenDatosUsuario($idusuario)
+	{
+		$c = new conectar();
+		$conexion = $c->conexion();
+		$sql = "SELECT id_usuario,
+
+	
+					nombre,
+					apellido,
+					email
+					from usuarios where id_usuario='$idusuario'";
+
+		$result = mysqli_query($conexion, $sql);
+
+		$ver = mysqli_fetch_row($result);
+
+		$datos = array(
+			'id_usuario'=> $ver[0],
+			'nombre' => $ver[1],
+			'apellido' => $ver[2],
+			'email' => $ver[3]
+
+		); ///array asociativo
+
+		return $datos;
 	}
 }

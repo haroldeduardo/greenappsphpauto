@@ -1,9 +1,7 @@
 <?php
 session_start(); //para que respete las dos secciones
 if (isset($_SESSION['usuario'])) {
-
-
-
+    //and$_SESSION['usuario']=='admin'
 
 ?>
 
@@ -45,59 +43,151 @@ if (isset($_SESSION['usuario'])) {
                         <input type="text" class="form-control input-sm" name="password" id="password">
                         <p></p>
                         <span class=" btn-primary btn-sm" id="registro">Registrar</span>
-                       
+
 
                     </form>
 
 
                 </div>
 
-                  <div class="col-sm-6">
-                      <div id="tablaUsuariosLoad"></div>
-                  </div>
+                <div class="col-sm-6">
+                    <div id="tablaUsuariosLoad"></div>
+                </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        		<!-- Button trigger modal -->
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="actualizaUsuarioModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Actualiza Usuario</h4>
+					</div>
+					<div class="modal-body">
+						<form id="frmRegistroU">
+							<input type="text" hidden="" id="idUsuario" name="idUsuario">
+							<label>Nombre</label>
+							<input type="text" class="form-control input-sm" name="nombreU" id="nombreU">
+							<label>Apellido</label>
+							<input type="text" class="form-control input-sm" name="apellidoU" id="apellidoU">
+							<label>Usuario</label>
+							<input type="text" class="form-control input-sm" name="usuarioU" id="usuarioU">
+
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="btnActualizaUsuario" type="button" class="btn btn-warning" data-dismiss="modal">Actualiza Usuario</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
     </body>
 
     </html>
+    <script type="text/javascript">
+        // para gregarle  al modal de la tabla usuarios  los datos  que se  van  actulizar
+        function agregaDatosUsuario(idusuario) {
+
+
+            $.ajax({
+				url: "../procesos/usuarios/obtenDatosUsuario.php", // lso adtso obetenido va  a ir actualizarUsuario.php
+				type: "post",
+				dataType: "html",
+				data: "idusuario=" + idusuario, // se obtiene los datos del usuario por medio del post
+                
+                
+                success: function(r) {
+
+                   // alert(r); //  nos va mostrar una cadena json
+                    dato = jQuery.parseJSON(r);
+
+                    $('#idUsuario').val(dato['id_usuario']);
+						$('#nombreU').val(dato['nombre']);
+						$('#apellidoU').val(dato['apellido']);
+						$('#usuarioU').val(dato['email']);
+                   
+
+                }
+
+            });
+
+
+
+
+        }
+
+
+
+
+
+        
+    </script>
 
 
     <script type="text/javascript">
-	$(document).ready(function(){
+        $(document).ready(function() {
 
-        $('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php')
-		$('#registro').click(function(){
+            $('#btnActualizaUsuario').click(function() {
 
-			vacios=validarFormVacio('frmRegistro');
+                datos = $('#frmRegistroU').serialize();
+                $.ajax({
+                    type: "POST",
+                    data: datos,
+                    url: "../procesos/",
+                    success: function(r) {
 
-			if(vacios > 0){
-				alertify.alert("Debes llenar todos los campos!!");
-				return false;
-			}
-
-			datos=$('#frmRegistro').serialize();
-            //console.log(datos);
-			$.ajax({
-				type:"POST",
-				data:datos,
-				url:"../procesos/regLogin/registraUsuario.php",
-				success:function(r){
-					//alert(r);
+                    }
+                });
+            });
+        })
+    </script>
 
 
+    <script type="text/javascript">
+        $(document).ready(function() {
 
-					if(r>0){
+            $('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php')
+            $('#registro').click(function() {
 
-                        $('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php')
-						alertify.success("Agregado con exito");
-					}else{
-						alertify.error("Fallo al agregar :("+r);
-					}
-				}
-			});
-		});
-	});
-</script>
+                vacios = validarFormVacio('frmRegistro');
+
+                if (vacios > 0) {
+                    alertify.alert("Debes llenar todos los campos!!");
+                    return false;
+                }
+
+                datos = $('#frmRegistro').serialize();
+                //console.log(datos);
+                $.ajax({
+                    type: "POST",
+                    data: datos,
+                    url: "../procesos/regLogin/registraUsuario.php",
+                    success: function(r) {
+                        //alert(r);
+
+
+
+                        if (r > 0) {
+                            $('#frmARegistro')[0].reset();
+
+                            $('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php')
+                            alertify.success("Agregado con exito");
+                        } else {
+                            alertify.error("Fallo al agregar :(" + r);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 
 <?php
 } else {
