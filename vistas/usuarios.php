@@ -125,7 +125,31 @@ if (isset($_SESSION['usuario'])) {
         }
 
 
+        function eliminaUsuario(idusuario) {
 
+alertify.confirm('¿Desea  eliminar  el usuario',
+    function() {
+        $.ajax({
+            type: "POST",
+            data: "idusuario=" +idusuario,
+            url: "../procesos/usuarios/eliminarUsuario.php",
+            success: function(r) {
+                if (r == 1) {
+
+                    $('#tablaUsuariosLoad').load("usuarios/tablaUsuarios.php");
+                    alertify.success("eliminado con exito")
+                } else {
+                    alertify.error("no se pudo eliminar")
+                }
+            }
+        });
+
+    },
+    function() {
+        alertify.error('Cancelo!')
+    });
+
+}
 
 
         

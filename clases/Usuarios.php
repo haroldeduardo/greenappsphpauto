@@ -1,6 +1,8 @@
 <?php
 
 class usuarios
+
+
 {
 
 
@@ -122,5 +124,16 @@ class usuarios
 
     }
 
+
+
+    public function eliminarUsuario($idusuario){
+        $c = new conectar();
+        $conexion = $c->conexion();
+
+        $sql= "DELETE from usuarios where id_usuario='$idusuario'";
+
+        return mysqli_query($conexion,$sql);
+
+}
 
 }
