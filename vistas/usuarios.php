@@ -23,7 +23,7 @@ if (isset($_SESSION['usuario'])) {
 
     <body>
         <div class="container">
-            <h1>Administra Usuaurios</h1>
+            <h1>Administra Usuarios</h1>
             <div class="row">
                 <div class="col-sm-4">
 
@@ -210,7 +210,7 @@ alertify.confirm('¿Desea  eliminar  el usuario',
 
 
                         if (r > 0) {
-                            $('#frmARegistro')[0].reset();
+                            $('#frmRegistro')[0].reset();
 
                             $('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php')
                             alertify.success("Agregado con exito");
