@@ -141,8 +141,18 @@ if (isset($_SESSION['usuario'])) {
                 $.ajax({
                     type: "POST",
                     data: datos,
-                    url: "../procesos/",
+                    url: "../procesos/usuarios/actualizarUsuario.php",
                     success: function(r) {
+
+                        console.log(r);
+                        if (r == 1) {
+
+                            $('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php');
+							
+							alertify.success("SE ACTUALIZO CON EXITOS");
+						} else {
+							alertify.error("NO SE ACTUALIZO");
+						}
 
                     }
                 });

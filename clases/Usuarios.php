@@ -4,6 +4,7 @@ class usuarios
 {
 
 
+
 	//insertar  el suario administrador
 	public function registroUsuario($datos)
 	{
@@ -79,6 +80,9 @@ class usuarios
 	//el usuario aqui recoje todo los datos y lo lleva  a la tablausuarios.php//
 	public function obtenDatosUsuario($idusuario)
 	{
+
+
+
 		$c = new conectar();
 		$conexion = $c->conexion();
 		$sql = "SELECT id_usuario,
@@ -103,4 +107,20 @@ class usuarios
 
 		return $datos;
 	}
+
+
+	public function actualizaUsuario($datos)
+    {
+        $c = new conectar();
+        $conexion = $c->conexion();
+
+
+        $sql = "UPDATE usuarios set nombre='$datos[1]',apellido='$datos[2]',email='$datos[3]' 
+        where id_usuario='$datos[0]'";
+
+     return  mysqli_query($conexion, $sql);
+
+    }
+
+
 }

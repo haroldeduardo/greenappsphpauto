@@ -184,7 +184,9 @@ if (isset($_SESSION['usuario'])) {
 
 						//	console.log(r); // sive para mira la consola resultados
 						if (r == 1) {
-							
+					
+
+                            $('#tablaArticulosLoad').load('articulos/tablaArticulos.php');
 							alertify.success("SE ACTUALIZO CON EXITOS");
 						} else {
 							alertify.error("NO SE ACTUALIZO");
