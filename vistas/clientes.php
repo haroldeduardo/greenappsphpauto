@@ -49,7 +49,7 @@ if (isset($_SESSION['usuario'])) {
 
 
                         <label>identificacion</label>
-                        <input type="text" class="form-control input-sm" name="identificacion" id="identificacion">
+                        <input type="text" class="form-control input-sm" name="rfc" id="rfc">
 
 
                         <p></p>
@@ -87,13 +87,20 @@ $('#btnAgregarCliente').click(function(){
 				$.ajax({
 					type:"POST",
 					data:datos,
-					url:"../procesos/categorias/agregaCategoria.php",
+					url:"../procesos/clientes/agregaClientes.php",
 					success:function(r){
+                       
+                        alert(r);
+                       // console.log(r);
 						if(r==1){
-					//esta linea nos permite limpiar el formulario al insetar un registro
-					$('#frmClientes')[0].reset();
 
-					$('#tablaclientesLoad').load("clientes/tablaCliente.php");
+                            
+                        
+                 
+					//esta linea nos permite limpiar el formulario al insetar un registro
+				
+
+					
 					alertify.success("Clientes agregados con exito :D");
 				}else{
 					alertify.error("No se pudo agregar clientes");
