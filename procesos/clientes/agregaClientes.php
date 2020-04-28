@@ -15,7 +15,7 @@ require_once "../../clases/Clientes.php";
 //2 paso se va recoejr los datos por  medi de print_r($_POST) y en la funcion de js colocamos
 // console.log(r) y   recojemos los datos   en el navegador por medio  de la consola
 
-print_r($_POST);
+//print_r($_POST);
 
 // 3 paso depues de recojer los datos  hacemos una array depues de esto se crea la clase  en
 //clientes  en Clientes.php
@@ -38,4 +38,6 @@ echo $obj->agregaCliente($datos);
 //10--- llamamos la funcion  de query insertar agregaCliente($datos) ojo que se tiene q
 // instanciar la clase clientes.php
 
+
+// hay vamos  a  la tablaclientes 
 

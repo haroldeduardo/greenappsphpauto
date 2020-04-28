@@ -206,10 +206,12 @@ alertify.confirm('¿Desea  eliminar  el usuario',
                     url: "../procesos/regLogin/registraUsuario.php",
                     success: function(r) {
                         //alert(r);
-
+                        
 
 
                         if (r > 0) {
+
+                      
                             $('#frmRegistro')[0].reset();
 
                             $('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php')

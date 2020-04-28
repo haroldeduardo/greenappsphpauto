@@ -84,17 +84,20 @@ $('#btnAgregarCliente').click(function(){
 	}
 
 				datos=$('#frmClientes').serialize();
+              
 				$.ajax({
 					type:"POST",
 					data:datos,
 					url:"../procesos/clientes/agregaClientes.php",
 					success:function(r){
                        
-                        alert(r);
-                       // console.log(r);
-						if(r==1){
+                      
+                       
+                       if (r > 0){
 
-                            
+
+                        $('#frmClientes')[0].reset();
+                       $("#tablaclientesLoad").load("clientes/tablaCliente.php")     
                         
                  
 					//esta linea nos permite limpiar el formulario al insetar un registro
