@@ -49,7 +49,7 @@ $result= mysqli_query($conexion,$sql);
         <td><?php echo $ver[5];?></td>
         <td><?php echo $ver[6];?></td>
         <td>
-           <span class="btn btn-warning btn-small">
+           <span class="btn btn-warning btn-small"data-toggle="modal" data-target="#abremodalClientesUpdate" onclick="agregaDatosCliente('<?php echo $ver[0]; ?>')">
            <span class="glyphicon glyphicon-pencil"></span>
         </span> 
         </td>
