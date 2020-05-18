@@ -8,7 +8,7 @@
 
  $obj=new clientes();
 
- $_POST['idcliente'];
+ 
 
  echo json_encode($obj->obtenDatosCliente( $_POST['idcliente']));
 

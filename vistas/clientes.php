@@ -79,7 +79,7 @@ if (isset($_SESSION['usuario'])) {
                     </div>
                     <div class="modal-body">
                         <form id="frmClientesU">
-                            <input type="text" hidden="" id="idcliente" class="idcliente">
+                            <input type="text" hidden="" id="idclienteU" name="idclienteU">
                             <label>Nombre</label>
                             <input type="text" class="form-control input-sm" name="nombreU" id="nombreU">
 
@@ -125,7 +125,7 @@ if (isset($_SESSION['usuario'])) {
             $.ajax({
                 url: "../procesos/clientes/obtenDatosCliente.php", // lso adtso obetenido va  a ir actualizarUsuario.php
                 type: "post",
-                dataType: "html",
+             
                 data: "idcliente=" + idcliente, // se obtiene los datos del usuario por medio del post
 
 
@@ -198,6 +198,37 @@ if (isset($_SESSION['usuario'])) {
             });
         });
     </script>
+    
+
+
+    <script type="text/javascript">
+		$(document).ready(function(){
+			$('#btnAgregarClienteU').click(function(){
+				datos=$('#frmClientesU').serialize();
+
+				$.ajax({
+					type:"POST",
+					data:datos,
+					url:"../procesos/clientes/actualizaClientes.php",
+					success:function(r){
+
+						if(r==1){
+							$('#frmClientes')[0].reset();
+							$('#tablaClientesLoad').load("clientes/tablaCliente.php");
+							alertify.success("Cliente actualizado con exito :D");
+						}else{
+							alertify.error("No se pudo actualizar cliente");
+						}
+					}
+				});
+			})
+		})
+	</script>
+
+
+
+
+
 
 <?php
 } else {
