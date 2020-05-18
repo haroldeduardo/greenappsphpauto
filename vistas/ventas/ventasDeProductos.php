@@ -1,46 +1,55 @@
+<?php
+require_once "../../clases/Conexion.php";
+$c = new conectar();
+$conexion=$c->conexion();
+
+?>
+
+
+
+
+
 <h4>Vender un Producto</h4>
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-6">
 
-    <form id="frmVentasProductos">
-        <label>Selecciona Cliente</label>
-           <select  class="form-control input-sm" id="clienteVenta" name="clienteVenta">
-               <option value="A">Selecciona</option>
-           </select>
-        
+        <form id="frmVentasProductos">
+            <label>Selecciona Cliente</label>
+            <select class="form-control input-sm" id="clienteVenta" name="clienteVenta">
+                <option value="A">Selecciona</option>
+            </select>
 
 
-        <label>Productos</label>
-        <select  class="form-control input-sm" id="productoVenta" name="productoVenta">
-               <option value="A">Selecciona</option>
-           </select>
-         
-       
 
-      <label> Descripcion</label>
-          <textarea class="form-control input-sm" id="" name=""></textarea>
-    
-        <label> Cantidad</label>
+            <label>Productos</label>
+            <select class="form-control input-sm" id="productoVenta" name="productoVenta">
+                <option value="A">Selecciona</option>
+            </select>
+
+
+
+            <label> Descripcion</label>
+            <textarea class="form-control input-sm" id="" name=""></textarea>
+
+            <label> Cantidad</label>
             <input type="text" class="form-control input-sm" id="" name="">
-       
 
 
-        <label> Precio </label>
+
+            <label> Precio </label>
             <input type="text" class="form-control input-sm" id="" name="">
             <p></p>
             <span class="btn btn-primary" id="btnAgregaVenta">Agregar</span>
-    </form>
+        </form>
     </div>
 </div>
 
 <script type="text/javascript">
+    $(document).ready(function() {
+            $('#clienteVenta').select2();
+            $('#productoVenta').select2();
+        }
 
-$(document).ready(function(){
-    $('#clienteVenta').select2();
-    $('#productoVenta').select2();
-}
 
-
-)
-
+    )
 </script>

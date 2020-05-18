@@ -151,6 +151,32 @@ if (isset($_SESSION['usuario'])) {
 
 
         }
+        function eliminarCliente(idcliente) {
+
+alertify.confirm('¿Desea  eliminar  el cliente',
+    function() {
+        $.ajax({
+            type: "POST",
+            data: "idcliente=" +idcliente,
+            url: "../procesos/clientes/eliminarCliente.php",
+            success: function(r) {
+                if (r == 1) {
+
+                    $('#tablaclientesLoad').load("clientes/tablaCliente.php");
+                    alertify.success("eliminado con exito")
+                } else {
+                    alertify.error("no se pudo eliminar")
+                }
+            }
+        });
+
+    },
+    function() {
+        alertify.error('Cancelo!')
+    });
+
+}
+        
     </script>
 
 
@@ -214,7 +240,7 @@ if (isset($_SESSION['usuario'])) {
 
 						if(r==1){
 							$('#frmClientes')[0].reset();
-							$('#tablaClientesLoad').load("clientes/tablaCliente.php");
+							$('#tablaclientesLoad').load("clientes/tablaCliente.php");
 							alertify.success("Cliente actualizado con exito :D");
 						}else{
 							alertify.error("No se pudo actualizar cliente");

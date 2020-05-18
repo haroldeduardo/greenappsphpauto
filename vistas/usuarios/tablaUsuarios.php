@@ -40,7 +40,7 @@ $result = mysqli_query($conexion, $sql);
 
             <td>
                 <!-- agregadatos  es  el que viene de la funcion de script-->
-                <span data-toggle="modal" data-target="#actualizaUsuarioModal" class="btn btn-warning btn-xs" onclick="agregaDatosUsuario('<?php echo $ver[0]; ?>')">                    <span class="glyphicon glyphicon-pencil"></span>
+                <span data-toggle="modal" data-target="#actualizaUsuarioModal" class="btn btn-warning btn-xs" onclick="agregaDatosUsuario('<?php echo $ver[0]; ?>')"> <span class="glyphicon glyphicon-pencil"></span>
                 </span>
             </td>
             <td>

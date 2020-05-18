@@ -83,4 +83,13 @@ class clientes
               where id_cliente='$datos[0]'";
     return mysqli_query($conexion,$sql);
   }
+
+  public function eliminarUsuario($idcliente){
+    $c = new conectar();
+    $conexion = $c->conexion();
+
+    $sql= "DELETE from clientes where id_cliente='$idcliente'";
+
+    return mysqli_query($conexion,$sql);
+  }
 }
